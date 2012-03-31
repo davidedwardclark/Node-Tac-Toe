@@ -1,0 +1,190 @@
+/*
+
+CSS for NodeTacToe
+Author: David Clark
+
+COLORS
+
+orange: #ffa500
+brown: #ef8802
+blue: #0033ff
+
+*/
+
+/* global */
+* {
+    padding: 0;
+    margin: 0;
+}
+html {
+    font-size: 16px;
+}
+body {
+    font-family: "peachy-keen", helvetica, sans-serif;
+}
+a {
+    color: #ef8802;
+}
+sup {
+    line-height: 0;
+}
+
+/* header */
+section {
+    overflow: auto;
+}
+h1 {
+    line-height: 1;
+    float: left;
+    font-size: 3rem;
+    letter-spacing: -0.3rem;
+    font-weight: normal;
+    padding: 2rem;
+    margin-bottom: 1rem;
+    color: #ef8802;
+}
+h1 span {
+    display: block;
+    float: left;
+}
+h1 span.char1 { -webkit-transform: rotate(-5deg); }
+h1 span.char2 { color: #fe951a; }
+h1 span.char3 { -webkit-transform: rotate(3deg); }
+h1 span.char4 { color: #fe951a; }
+h1 span.char5 { -webkit-transform: rotate(-2deg); margin: 0 -0.5rem 0 0.3rem; }
+h1 span.char6 { margin-left: -0.2rem; color: #fe951a; }
+h1 span.char7 { margin-left: -0.1rem; }
+h1 span.char8 { -webkit-transform: rotate(-2deg); margin: 0 -0.5rem 0 0.3rem; color: #fe951a; }
+h1 span.char9 { margin-left: -0.2rem; }
+h1 span.char10 { -webkit-transform: rotate(-2deg); color: #fe951a; }
+.wf-active #newgame, .wf-active #message {
+    letter-spacing: 0.1rem;
+}
+.hide {
+    display: none;
+}
+#newgame {
+    float: right;
+    font-family: "peachy-keen", helvetica, sans-serif;
+    margin: 2.65rem 2rem 0 0;
+    padding: 0.65rem 1rem;
+    font-size: 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #ffa500;
+    border: none;
+}
+#newgame:hover {
+    -webkit-transform: scale(1.03);
+}
+#newgame:active {
+    -webkit-transform: scale(1);
+}
+#message {
+    width: 12rem;
+    text-align: center;
+    margin: 2.65rem auto 2.65rem auto;
+    font-size: 1rem;
+    padding: 0.65rem 1rem;
+    color: #ffffff;
+    background-color: #0033ff;
+    border-radius: 1rem;
+    text-transform: uppercase;
+}
+#message sup {
+    font-size: 0.8rem;
+    text-transform: lowercase;
+}
+
+/* board */
+table {
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0.5rem;
+}
+table.quiet td {
+    color: #cccccc;
+}
+table.quiet td:hover {
+    cursor: default;
+}
+table tr td {
+    width: 11rem;
+    height: 11rem;
+    padding: 0.5rem;
+    font-size: 9rem;
+    line-height: 1.2;
+    text-align: center;
+    color: #0033ff;
+    text-shadow: 0rem 0.08rem 0.08rem #B8B8B8;
+    background: #ffa500 url('noise.jpg') repeat 0 0;
+    border-radius: 1rem;
+}
+table tr td:hover {
+    cursor: pointer;
+}
+
+/* footer */
+footer {
+    font-family: "facitweb", helvetica, sans-serif;
+    font-size: 1rem;
+    padding: 2rem 0 0.5rem 2rem;
+    color: #ffa500;
+}
+
+/* 1000 & down */
+@media only screen and (max-width: 1000px) {
+    html {
+        font-size: 15px;
+    }
+    #newgame, #message {
+        float: right;
+        margin-right: 2rem;
+    }
+}
+
+/* 800 & down */
+@media only screen and (max-width: 800px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+/* 700 & down */
+@media only screen and (max-width: 700px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+/* 600 & down */
+@media only screen and (max-width: 600px) {
+    html {
+        font-size: 10px;
+    }
+}
+
+/* 480 & down */
+@media only screen and (max-width: 480px) {
+    html {
+        font-size: 8px;
+    }
+    #message {
+        width: 15rem;
+    }
+    table tr td {
+        width: 9rem;
+        height: 8rem;
+        font-size: 8rem;
+    }
+}
+
+/* 320 & down */
+@media only screen and (max-width: 320px) {
+    table tr td {
+        width: 11rem;
+        height: 9rem;
+        font-size: 10rem;
+    }
+}
