@@ -15,9 +15,8 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
     var history = [];
     var blue = '#0033ff';
     
-    
     // Add click events to board squares
-    var addEventListenerToSquares = function(func) {
+    var initialiseBoard = function(func) {
         var board = document.getElementById('board');
         var squares = board.getElementsByTagName('td');
         for (var i = 0; i < squares.length; i++) {
@@ -160,8 +159,9 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
             this.setAttribute('class','hide');
         }, false);
     };
+
     
     // Start the game
-    addEventListenerToSquares(checkSquare);
+    initialiseBoard(checkSquare);
       
 }());
