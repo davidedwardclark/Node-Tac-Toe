@@ -8,8 +8,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
 
 // Game code
 (function() {
-    'use strict';
-    
+
     // Variables
     var gameOn = true;
     var whoseTurn = 1;
