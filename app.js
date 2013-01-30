@@ -71,12 +71,12 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
             if (player1Match.length === 3) { winningCombo = player1Match; }
             if (player2Match.length === 3) { winningCombo = player2Match; }
             if ((player1Match.length === 3) || (player2Match.length === 3)) {
-                endGame(winningCombo, 'win');
+                endGame('win', winningCombo);
                 return;
             }
         }
         if ((history.length === 9) && gameOn) {
-            endGame(winningCombo, 'tie');
+            endGame('tie');
             return;
         }
         if (gameOn) {
@@ -111,7 +111,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
     };
     
     // End the game and reset everything
-    var endGame = function(winningCombo, status) {
+    var endGame = function(status, winningCombo) {
         var winner = 'Player ' + whoseTurn;
         var highlight = [];
         gameOn = false;
