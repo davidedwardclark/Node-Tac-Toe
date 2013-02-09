@@ -171,7 +171,7 @@ footer {
         font-size: 8px;
     }
     #message {
-        width: 15rem;
+        width: 11.5rem;
     }
     table tr td {
         width: 9rem;
@@ -182,7 +182,19 @@ footer {
 
 /* 320 & down */
 @media only screen and (max-width: 320px) {
-    table tr td {
+    h1 {
+        font-size: 2.5rem;
+        padding: 1rem 0 1rem 1rem;
+    }
+    #message, #newgame {
+        font-size: 0.8rem;
+        padding: 0.37rem 0.75rem 0.63rem 0.75rem;
+        margin-top: 1.65rem;
+        margin-right: 1rem;
+    }
+    #message sup {
+        font-size: 0.5rem;
+    }
         width: 11rem;
         height: 9rem;
         font-size: 10rem;
