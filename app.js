@@ -18,6 +18,25 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
     var blue = '#0033ff';
     var board = document.getElementById('board');
     var squares = board.getElementsByTagName('td');
+
+    // Play sounds
+    var playSound = function (audio) {
+        var audio5js = new Audio5js({
+            swf_path: 'swf/audio5js.swf',
+            throw_errors: true,
+            format_time: true,
+            ready: function () {
+                if (audio === 'startgame') {
+                    this.load('audio/startgame.mp3');
+                } else if (audio === 'click') {
+                    this.load('audio/click.mp3');
+                } else if (audio === 'endgame') {
+                    this.load('audio/endgame.mp3');
+                }
+                this.play();
+            }
+        });
+    };
     
     // Add click events to squares & fire checkSquare if someone clicks one
     var initialiseBoard = function(func) {
@@ -33,6 +52,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
     var checkSquare = function(elem) {
         var value = elem.innerHTML;
         if (gameOn && (value !== 'X') && (value !== 'O') ) {
+            playSound('click');
             updateHistory(elem);
             selectSquare(elem);
             checkWin();
