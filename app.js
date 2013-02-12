@@ -7,10 +7,10 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
 */
 
 // Game code
-(function() {
+(function () {
 
     // Variables
-    var gameOn = true;
+    var gameOn = false;
     var whoseTurn = 1;
     var history = [];
     var player1 = [];
@@ -18,49 +18,47 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
     var blue = '#0033ff';
     var board = document.getElementById('board');
     var squares = board.getElementsByTagName('td');
+    var newGame = document.getElementById('newgame');
 
-    // Play sounds
-    var playSound = function (audio) {
-        var audio5js = new Audio5js({
-            swf_path: 'swf/audio5js.swf',
-            throw_errors: true,
-            format_time: true,
-            ready: function () {
-                if (audio === 'startgame') {
-                    this.load('audio/startgame.mp3');
-                } else if (audio === 'click') {
-                    this.load('audio/click.mp3');
-                } else if (audio === 'endgame') {
-                    this.load('audio/endgame.mp3');
-                }
-                this.play();
-            }
-        });
-    };
-    
-    // Add click events to squares & fire checkSquare if someone clicks one
-    var initialiseBoard = function(func) {
+    // Attach events
+    newGame.addEventListener('click', function () {
+        startGame();
+    }, false);
+    for (var i = 0; i < squares.length; i++) {
+        squares[i].addEventListener('click', function () {
+            checkSquare(this);
+        }, false);
+    }
+
+    // Start a new game
+    var startGame = function () {
+        gameOn = true;
+        whoseTurn = 1;
+        history = [];
+        player1 = [];
+        player2 = [];
+        board.setAttribute('class', '');
+        updateStatus('Player 1&rsquo;<sup>s</sup> Turn');
         for (var i = 0; i < squares.length; i++) {
-            squares[i].addEventListener('click', function() {
-                func(this);
-            }, false);
+            squares[i].innerHTML = '&nbsp;';
+            squares[i].setAttribute('style', '');
         }
     };
     
     // Check to see if someone has already selected that square
     // If they haven't then update the history & check the win state
-    var checkSquare = function(elem) {
+    var checkSquare = function (elem) {
         var value = elem.innerHTML;
-        if (gameOn && (value !== 'X') && (value !== 'O') ) {
-            playSound('click');
-            updateHistory(elem);
+        if (gameOn && (value !== 'X') && (value !== 'O')) {
             selectSquare(elem);
+            updateHistory(elem);
             checkWin();
+            playSound('click');
         }
     };
     
     // Update the history
-    var updateHistory = function(elem) {
+    var updateHistory = function (elem) {
         var player = whoseTurn;
         var square = Number(elem.getAttribute('class').replace('tile-', ''));
         var turn = { 'player' : player, 'square' : square };
@@ -73,7 +71,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
     };
     
     // Check if someone has won
-    var checkWin = function() {
+    var checkWin = function () {
         var winningCombo;
         var winningCombinations = [
             [1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
@@ -105,7 +103,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
     };
     
     // Mark the square as selected
-    var selectSquare = function(elem) {
+    var selectSquare = function (elem) {
         if (whoseTurn === 1) {
             elem.innerHTML = 'X';
         } else {
@@ -114,13 +112,13 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
     };
     
     // Update the message board
-    var updateStatus = function(value) {
+    var updateStatus = function (value) {
         var container = document.getElementById('message');
         container.innerHTML = value;
     };
     
     // Update the message to let the user know whose turn it is
-    var changeTurn = function() {
+    var changeTurn = function () {
         if (whoseTurn === 1) {
             whoseTurn = 2;
             updateStatus('Player 2&rsquo;<sup>s</sup> Turn');
@@ -131,14 +129,13 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
     };
     
     // End the game and reset everything
-    var endGame = function(status, winningCombo) {
+    var endGame = function (status, winningCombo) {
         var winner = 'Player ' + whoseTurn;
         var highlight = [];
         gameOn = false;
-        player1 = [];
-        player2 = [];
-        board.setAttribute('class','quiet');
+        board.setAttribute('class', 'quiet');
         if (status === 'win') {
+            playSound('endgame');
             updateStatus(winner + ' Wins');
             for (var i = 0; i < 3; i++) {
                 highlight[i] = 'tile-' + winningCombo.shift();
@@ -149,33 +146,30 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
                     }
                 }
             }
-        }
-        if (status === 'tie') {
+        } else if (status === 'tie') {
             winningCombo = [];
             updateStatus('Tie');
         }
-        startGame();
     };
 
-    // Start a new game.
-    var startGame = function() {
-        var newgame = document.getElementById('newgame');
-        newgame.setAttribute('class','show');
-        newgame.addEventListener('click', function() {
-            gameOn = true;
-            history = [];
-            whoseTurn = 1;
-            board.setAttribute('class','');
-            updateStatus('Player 1&rsquo;<sup>s</sup> Turn');
-            var squares = board.getElementsByTagName('td');
-            for (var i = 0; i < squares.length; i++) {
-                squares[i].innerHTML = '&nbsp;';
-                squares[i].setAttribute('style','');
+    // Play sounds
+    var playSound = function (audio) {
+        var audio5js = new Audio5js({
+            swf_path: 'swf/audio5js.swf',
+            throw_errors: true,
+            format_time: true,
+            ready: function () {
+                if (audio === 'click') {
+                    this.load('audio/click.mp3');
+                } else if (audio === 'endgame') {
+                    this.load('audio/endgame.mp3');
+                }
+                this.play();
             }
-            this.setAttribute('class','hide');
-        }, false);
+        });
     };
-    
+
     // Start the game
-    initialiseBoard(checkSquare);
+    startGame();
+
 }());

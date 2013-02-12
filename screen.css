@@ -195,6 +195,7 @@ footer {
     #message sup {
         font-size: 0.5rem;
     }
+    table tr td {
         width: 11rem;
         height: 9rem;
         font-size: 10rem;
