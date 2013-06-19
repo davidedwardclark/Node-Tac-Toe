@@ -6,10 +6,8 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
 
 */
 
-// Game code
 (function () {
 
-    // Variables
     var gameOn = false;
     var whoseTurn = 1;
     var history = [];
@@ -154,7 +152,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
 
     // Play sounds
     var playSound = function (audio) {
-        var audio5js = new Audio5js({
+        var audio5js = new audio5js({
             swf_path: 'swf/audio5js.swf',
             throw_errors: true,
             format_time: true,
