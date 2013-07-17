@@ -42,7 +42,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
             squares[i].setAttribute('style', '');
         }
     };
-    
+
     // Check to see if someone has already selected that square
     // If they haven't then update the history & check the win state
     var checkSquare = function (elem) {
@@ -54,7 +54,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
             playSound('click');
         }
     };
-    
+
     // Update the history
     var updateHistory = function (elem) {
         var player = whoseTurn;
@@ -67,7 +67,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
             player2.push(square);
         }
     };
-    
+
     // Check if someone has won
     var checkWin = function () {
         var winningCombo;
@@ -99,7 +99,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
             changeTurn();
         }
     };
-    
+
     // Mark the square as selected
     var selectSquare = function (elem) {
         if (whoseTurn === 1) {
@@ -108,13 +108,13 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
             elem.innerHTML = 'O';
         }
     };
-    
+
     // Update the message board
     var updateStatus = function (value) {
         var container = document.getElementById('message');
         container.innerHTML = value;
     };
-    
+
     // Update the message to let the user know whose turn it is
     var changeTurn = function () {
         if (whoseTurn === 1) {
@@ -125,7 +125,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
             updateStatus('Player 1&rsquo;<sup>s</sup> Turn');
         }
     };
-    
+
     // End the game and reset everything
     var endGame = function (status, winningCombo) {
         var winner = 'Player ' + whoseTurn;
@@ -152,15 +152,15 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
 
     // Play sounds
     var playSound = function (audio) {
-        var audio5js = new audio5js({
-            swf_path: 'swf/audio5js.swf',
+        var audio5js = new Audio5js({
+            swf_path: '/libraries/audio5js.swf',
             throw_errors: true,
             format_time: true,
             ready: function () {
                 if (audio === 'click') {
-                    this.load('audio/click.mp3');
+                    this.load('/audio/click.mp3');
                 } else if (audio === 'endgame') {
-                    this.load('audio/endgame.mp3');
+                    this.load('/audio/endgame.mp3');
                 }
                 this.play();
             }

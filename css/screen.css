@@ -118,7 +118,7 @@ table tr td {
     text-align: center;
     color: #0033ff;
     text-shadow: 0rem 0.08rem 0.08rem #B8B8B8;
-    background: #ffa500 url('noise.jpg') repeat 0 0;
+    background: #ffa500 url('/images/noise.jpg') repeat 0 0;
     border-radius: 1rem;
 }
 table tr td:hover {
