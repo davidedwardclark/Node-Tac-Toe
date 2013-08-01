@@ -8,6 +8,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
 
 (function () {
 
+    var socket = io.connect('http://localhost:8080');
     var gameOn = false;
     var whoseTurn = 1;
     var history = [];
@@ -55,7 +56,7 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
         }
     };
 
-    // Update the history
+    // Update the history and send the results to the server
     var updateHistory = function (elem) {
         var player = whoseTurn;
         var square = Number(elem.getAttribute('class').replace('tile-', ''));
@@ -66,6 +67,13 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
         } else {
             player2.push(square);
         }
+        socket.emit('move', { 
+            player: whoseTurn,
+            square: square
+        });
+        socket.on('update', function (data) { 
+            console.log(data);
+        });
     };
 
     // Check if someone has won
@@ -170,4 +178,4 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
     // Start the game
     startGame();
 
-}());
+})();

@@ -1,14 +1,35 @@
+// Socket.io Connects Clients to Server
+
+var app = require('express')();
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+
+server.listen(8080);
+
+app.get('/*', function (req, res) {
+    var path = req.params[0] ? req.params[0] : 'index.html';
+    res.sendfile('./' + path);
+});
+
+io.sockets.on('connection', function (socket) {
+    socket.on('move', function (data) {
+        console.log(data);
+        socket.emit('update', data);
+    });
+});
+
+
 // NodeJS to MongoDB Connection via MongooseJS
 
 var mongoose = require('mongoose');
-var DATABASE = 'Node-Tac-Toe';
+var database = 'Node-Tac-Toe';
 
-mongoose.connect('mongodb://localhost/' + DATABASE);
+mongoose.connect('mongodb://localhost/' + database);
 var databaseConnection = mongoose.connection;
 
 databaseConnection.on('error', console.error.bind(console, 'Connection error:'));
 databaseConnection.once('open', function callback() {
-    console.log('Connected to ' + DATABASE + '.');
+    console.log('Connected to ' + database + '.');
 
     // Schemas
     var nttGamesSchema = mongoose.Schema({
