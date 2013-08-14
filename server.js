@@ -1,4 +1,11 @@
-// Socket.io Connects Clients to Server
+/*
+
+Server Side JavaScript for NodeTacToe
+Author: David Clark
+
+*/
+
+// Socket.io connects clients to server
 
 var app = require('express')();
 var server = require('http').createServer(app);
@@ -29,7 +36,7 @@ var databaseConnection = mongoose.connection;
 
 databaseConnection.on('error', console.error.bind(console, 'Connection error:'));
 databaseConnection.once('open', function callback() {
-    console.log('Connected to ' + database + '.');
+    console.log('Connected to database ' + database + '.');
 
     // Schemas
     var nttGamesSchema = mongoose.Schema({
@@ -70,7 +77,7 @@ databaseConnection.once('open', function callback() {
         if (err) {
             console.log("Find error: " + err);
         } else {
-            console.log("Game document found:")
+            console.log("Game document found:");
             console.log(gameDocument);
         }
     });
@@ -78,7 +85,7 @@ databaseConnection.once('open', function callback() {
         if (err) {
             console.log("Find error: " + err);
         } else {
-            console.log("Move document found:")
+            console.log("Move document found:");
             console.log(moveDocument);
         }
     });

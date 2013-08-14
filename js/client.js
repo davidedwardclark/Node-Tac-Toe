@@ -1,8 +1,7 @@
 /*
 
-JavaScript for NodeTacToe
+Client Side JavaScript for NodeTacToe
 Author: David Clark
-Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
 
 */
 
@@ -18,6 +17,11 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
     var board = document.getElementById('board');
     var squares = board.getElementsByTagName('td');
     var newGame = document.getElementById('newgame');
+
+    // Socket data confirming that the server recorded the move
+    socket.on('update', function (data) {
+        console.log(data);
+    });
 
     // Attach events
     newGame.addEventListener('click', function () {
@@ -67,12 +71,9 @@ Notes: JQuery is for wimps. Strict is for ballers. Nuff said.
         } else {
             player2.push(square);
         }
-        socket.emit('move', { 
+        socket.emit('move', {
             player: whoseTurn,
             square: square
-        });
-        socket.on('update', function (data) { 
-            console.log(data);
         });
     };
 
