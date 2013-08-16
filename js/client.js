@@ -7,7 +7,7 @@ Author: David Clark
 
 (function () {
 
-    var socket = io.connect('http://localhost:8080');
+    var socket = io.connect('http://10.0.1.5:8080');
     var gameOn = false;
     var whoseTurn = 1;
     var history = [];
@@ -18,15 +18,17 @@ Author: David Clark
     var squares = board.getElementsByTagName('td');
     var newGame = document.getElementById('newgame');
 
-    // Socket data confirming that the server recorded the move
+    // Receive socket data which confirms that the server recorded the move
     socket.on('update', function (data) {
         console.log(data);
     });
 
-    // Attach events
+    // New game event
     newGame.addEventListener('click', function () {
         startGame();
     }, false);
+
+    // Board square events
     for (var i = 0; i < squares.length; i++) {
         squares[i].addEventListener('click', function () {
             checkSquare(this);
