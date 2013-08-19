@@ -19,14 +19,14 @@ var moveDocument = new nttMoves({ player: 1, position: 3, gameId: gameDocument._
 // Save
 gameDocument.save(function (err, gameDocument) {
     if (err) {
-        console.log("Save error: " + err);
+        console.log("Save error: ", err);
     } else {
         console.log("Game document saved. Id: " + gameDocument._id);
     }
 });
 moveDocument.save(function (err, moveDocument) {
     if (err) {
-        console.log("Save error: " + err);
+        console.log("Save error: ", err);
     } else {
         console.log("Move document saved. Id: " + moveDocument._id);
     }
@@ -35,7 +35,7 @@ moveDocument.save(function (err, moveDocument) {
 // Find
 nttGames.find(function (err, gameDocument) {
     if (err) {
-        console.log("Find error: " + err);
+        console.log("Find error: ", err);
     } else {
         console.log("Game document found:");
         console.log(gameDocument);
@@ -43,7 +43,7 @@ nttGames.find(function (err, gameDocument) {
 });
 nttMoves.find(function (err, moveDocument) {
     if (err) {
-        console.log("Find error: " + err);
+        console.log("Find error: ", err);
     } else {
         console.log("Move document found:");
         console.log(moveDocument);

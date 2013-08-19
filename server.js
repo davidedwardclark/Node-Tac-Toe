@@ -34,28 +34,44 @@ databaseConnection.once('open', function callback() {
     });
     var tmpMoves = mongoose.model('tmpMoves', tmpMovesSchema);
 
-    // Store moves as they come in.
+    // Establish a socket connection to clients.
     io.sockets.on('connection', function (socket) {
+
+        // Variables
+        var roomId = '';
+
+        // Join the room the client is in.
+        socket.on('room', function (room) {
+            socket.join(room);
+            roomId = room;
+            console.log('Client connected to room: ' + room);
+        });
+
+        // On move.
         socket.on('move', function (data) {
 
             // Save the data to the store.
-            var tempDocument = new tmpMoves({
+            var tmpMove = new tmpMoves({
                 socketId: socket.id,
                 player: data.player,
                 square: data.square
             });
-            tempDocument.save(function (err, tempDocument) {
+            tmpMove.save(function (err, tmpMove) {
                 if (err) {
-                    console.log("Save error: " + err);
+                    console.log('Save error: ', err);
                 } else {
-                    console.log("Temp document saved.");
+                    console.log('Temp document saved.');
                 }
             });
 
             // Emit back to the clients where the last user went.
-            socket.emit('update', data);
+            // socket.emit('update', data);
+
+            var room = "520f0ad42bca1378b100000f";
+            io.sockets.in(room).emit('update', data);
 
         });
+
     });
 
 });
