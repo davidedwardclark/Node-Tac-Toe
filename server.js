@@ -37,20 +37,20 @@ databaseConnection.once('open', function callback() {
     // Establish a socket connection to clients.
     io.sockets.on('connection', function (socket) {
 
-        // Variables
-        var roomId = '';
+        var roomId;
 
         // Join the room the client is in.
         socket.on('room', function (room) {
             socket.join(room);
             roomId = room;
-            console.log('Client connected to room: ' + room);
+            console.log('Client connected to room: ' + roomId);
         });
 
-        // On move.
+        // When a client makes a move save the data in mongo and emit back to all clients
+        // where and what player made the move.
         socket.on('move', function (data) {
 
-            // Save the data to the store.
+            // Save the move.
             var tmpMove = new tmpMoves({
                 socketId: socket.id,
                 player: data.player,
@@ -64,11 +64,8 @@ databaseConnection.once('open', function callback() {
                 }
             });
 
-            // Emit back to the clients where the last user went.
-            // socket.emit('update', data);
-
-            var room = "520f0ad42bca1378b100000f";
-            io.sockets.in(room).emit('update', data);
+            // Emit the move back to players.
+            io.sockets.in(roomId).emit('update', data);
 
         });
 
