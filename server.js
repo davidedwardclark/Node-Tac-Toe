@@ -13,6 +13,11 @@ var database = 'Node-Tac-Toe';
 
 server.listen(8080);
 
+app.get('/game/:id', function (req, res) {
+    var id = req.params.id;
+    res.sendfile('index.html');
+});
+
 app.get('/*', function (req, res) {
     var path = req.params[0] ? req.params[0] : 'index.html';
     res.sendfile('./' + path);

@@ -8,7 +8,7 @@ Author: David Clark
 (function () {
 
     var socket = io.connect('http://10.0.1.5:8080');
-    var room = '520f0ad42bca1378b100000f';
+    var room = window.location.pathname.split('/').pop();
     var gameOn = false;
     var whoseTurn = 1;
     var history = [];
