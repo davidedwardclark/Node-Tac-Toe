@@ -14,7 +14,7 @@ var database = 'Node-Tac-Toe';
 server.listen(8080);
 
 app.get('/game/:id', function (req, res) {
-    var id = req.params.id;
+    var id = req.params.id; // Unused because the client sends us it via sockets.
     res.sendfile('index.html');
 });
 
