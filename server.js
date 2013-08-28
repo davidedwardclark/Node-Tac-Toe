@@ -5,71 +5,79 @@ Author: David Clark
 
 */
 
+/* Variables */
 var app = require('express')();
-var server = require('http').createServer(app);
+var server = require('http').createServer(app).listen(8080);
 var io = require('socket.io').listen(server);
 var mongoose = require('mongoose');
-var database = 'Node-Tac-Toe';
 
-server.listen(8080);
-
+/* Routes */
 app.get('/game/:id', function (req, res) {
-    var id = req.params.id; // Unused because the client sends us it via sockets.
     res.sendfile('index.html');
 });
-
 app.get('/*', function (req, res) {
     var path = req.params[0] ? req.params[0] : 'index.html';
     res.sendfile('./' + path);
 });
 
-mongoose.connect('mongodb://localhost/' + database);
-var databaseConnection = mongoose.connection;
+/* Database */
+mongoose.connect('mongodb://localhost/Node-Tac-Toe');
+mongoose.connection.once('open', function callback() {
 
-databaseConnection.on('error', console.error.bind(console, 'Connection error:'));
-databaseConnection.once('open', function callback() {
-
-    console.log('Connected to database ' + database + '.');
-
-    // Temp schema to hold move data.
-    var tmpMovesSchema = mongoose.Schema({
-        socketId: Object,                           // Socket id.
+    // Schemas
+    var movesSchema = mongoose.Schema({
+        socketId: Object,                           // Socket id of the player.
+        roomId: String,                             // Room id of the game.
         player: Number,                             // Player 1 or player 2.
-        square: Number                              // Square they placed on.
+        square: Number                              // Square they placed.
     });
-    var tmpMoves = mongoose.model('tmpMoves', tmpMovesSchema);
+    var moves = mongoose.model('moves', movesSchema);
 
-    // Establish a socket connection to clients.
+    // Sockets
     io.sockets.on('connection', function (socket) {
 
         var roomId;
 
-        // Join the room the client is in.
+        // Join the clients room.
         socket.on('room', function (room) {
             socket.join(room);
             roomId = room;
             console.log('Client connected to room: ' + roomId);
         });
 
-        // When a client makes a move save the data in mongo and emit back to all clients
-        // where and what player made the move.
+        // On move.
         socket.on('move', function (data) {
 
-            // Save the move.
-            var tmpMove = new tmpMoves({
+            // Prepare the data.
+            var move = new moves({
                 socketId: socket.id,
+                roomId: roomId,
                 player: data.player,
                 square: data.square
             });
-            tmpMove.save(function (err, tmpMove) {
-                if (err) {
+
+            // Save it.
+            move.save(function (error, move) {
+                if (error) {
                     console.log('Save error: ', err);
                 } else {
-                    console.log('Temp document saved.');
+                    if (move.player === 1) {
+                        var piece = 'X';
+                    } else {
+                        var piece = 'O';
+                    }
+                    console.log(
+                        'Player ' + move.player +
+                        ' (socket id: ' + socket.id + ')' +
+                        ' of room ' + roomId +
+                        ' placed an ' + piece +
+                        ' on square ' + move.square +
+                        '. This moves unique id is ' + move._id + '.'
+                    );
                 }
             });
 
-            // Emit the move back to players.
+            // Emit to opponent.
             io.sockets.in(roomId).emit('update', data);
 
         });
