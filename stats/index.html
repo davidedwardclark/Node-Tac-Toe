@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>NodeTacToe Stats</title>
+    <script type="text/template" id="game-template">
+        <%= game %>
+        <% _.each(moves, function(move) { %>
+            <%= move.player %>
+            <%= move.square %>
+        <% }); %>
+    </script>
+    <script type="text/template" id="set-template">
+        <h1>Game Stats</h1>
+        <ul class="games"></ul>
+    </script>
+</head>
+<body>
+    <div class="container"></div>
+    <script src="libraries/underscore.js"></script>
+    <script src="libraries/jquery.js"></script>
+    <script src="libraries/backbone.js"></script>
+    <script src="js/client.js"></script>
+    <script>
+        (function () {
+            gameSet.fetch();
+        })();
+    </script>
+</body>
+</html>

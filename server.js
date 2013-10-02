@@ -12,6 +12,13 @@ var io = require('socket.io').listen(server);
 var mongoose = require('mongoose');
 
 /* Routes */
+app.get('/stats/', function (req, res) {
+    res.sendfile('stats/index.html');
+});
+app.get('/stats/data/', function (req, res) {
+    res.contentType('application/json');
+    res.sendfile('stats/data/moves.json');
+});
 app.get('/game/:id', function (req, res) {
     res.sendfile('index.html');
 });
@@ -24,12 +31,12 @@ app.get('/*', function (req, res) {
 mongoose.connect('mongodb://localhost/Node-Tac-Toe');
 mongoose.connection.once('open', function callback() {
 
-    // Schemas
+    // Schemata
     var movesSchema = mongoose.Schema({
-        socketId: Object,                           // Socket id of the player.
-        roomId: String,                             // Room id of the game.
-        player: Number,                             // Player 1 or player 2.
-        square: Number                              // Square they placed.
+        socketId: Object,   // Socket id of the player.
+        roomId: String,     // Room id of the game.
+        player: Number,     // Player 1 or player 2.
+        square: Number      // Square they placed.
     });
     var moves = mongoose.model('moves', movesSchema);
 
