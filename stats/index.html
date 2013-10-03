@@ -3,16 +3,20 @@
 <head>
     <meta charset="utf-8">
     <title>NodeTacToe Stats</title>
-    <script type="text/template" id="game-template">
-        <%= game %>
-        <% _.each(moves, function(move) { %>
-            <%= move.player %>
-            <%= move.square %>
-        <% }); %>
-    </script>
+    <link rel="stylesheet" href="css/screen.css">
     <script type="text/template" id="set-template">
         <h1>Game Stats</h1>
         <ul class="games"></ul>
+    </script>
+    <script type="text/template" id="game-template">
+        <h2><%= game %></h2>
+        <ul>
+            <% _.each(moves, function(move) { %>
+                <li>
+                    Player <%= move.player %> placed on square <%= move.square %>.
+                </li>
+            <% }); %>
+        </ul>
     </script>
 </head>
 <body>
@@ -23,7 +27,7 @@
     <script src="js/client.js"></script>
     <script>
         (function () {
-            gameSet.fetch();
+            gameSet.fetch({reset: true});
         })();
     </script>
 </body>
