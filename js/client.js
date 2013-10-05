@@ -7,8 +7,6 @@ Author: David Clark
 
 (function () {
 
-    var socket = io.connect('http://10.0.1.5:8080');
-    var room = window.location.pathname.split('/').pop();
     var gameOn = false;
     var whoseTurn = 1;
     var history = [];
@@ -18,16 +16,6 @@ Author: David Clark
     var board = document.getElementById('board');
     var squares = board.getElementsByTagName('td');
     var newGame = document.getElementById('newgame');
-
-    // Once connected emit which room we want to connect to.
-    socket.on('connect', function () {
-        socket.emit('room', room);
-    });
-
-    // Receive socket data which confirms that the server recorded the move
-    socket.on('update', function (data) {
-        console.log(data);
-    });
 
     // New game event
     newGame.addEventListener('click', function () {
@@ -79,10 +67,6 @@ Author: David Clark
         } else {
             player2.push(square);
         }
-        socket.emit('move', {
-            player: whoseTurn,
-            square: square
-        });
     };
 
     // Check if someone has won
