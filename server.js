@@ -31,7 +31,7 @@ app.get('/*', function (req, res) {
 mongoose.connect('mongodb://localhost/Node-Tac-Toe');
 mongoose.connection.once('open', function callback() {
 
-    // Schemata
+    // Schema
     var movesSchema = mongoose.Schema({
         socketId: Object,   // Socket id of the player.
         roomId: String,     // Room id of the game.
@@ -39,6 +39,16 @@ mongoose.connection.once('open', function callback() {
         square: Number      // Square they placed.
     });
     var moves = mongoose.model('moves', movesSchema);
+
+    // Query the moves table.
+    moves.find(function (err, moveDocument) {
+        if (err) {
+            console.log("Find error: ", err);
+        } else {
+            console.log("Move documents found:");
+            console.log(moveDocument);
+        }
+    });
 
     // Sockets
     io.sockets.on('connection', function (socket) {
