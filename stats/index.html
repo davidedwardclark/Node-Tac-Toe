@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>NodeTacToe Stats</title>
+    <link rel="stylesheet" href="css/screen.css">
+    <script type="text/template" id="set-template">
+        <h1>Game Stats</h1>
+        <ul class="games"></ul>
+    </script>
+    <script type="text/template" id="game-template">
+        <h2><%= game %></h2>
+        <ul>
+            <% _.each(moves, function(move) { %>
+                <li>
+                    Player <%= move.player %> placed on square <%= move.square %>.
+                </li>
+            <% }); %>
+        </ul>
+    </script>
+</head>
+<body>
+    <div class="container"></div>
+    <script src="libraries/underscore.js"></script>
+    <script src="libraries/jquery.js"></script>
+    <script src="libraries/backbone.js"></script>
+    <script src="js/client.js"></script>
+    <script>
+        (function () {
+            gameSet.fetch({reset: true});
+        })();
+    </script>
+</body>
+</html>
