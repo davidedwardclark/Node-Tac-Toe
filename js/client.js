@@ -7,7 +7,7 @@ Author: David Clark
 
 (function () {
 
-    var socket = io.connect('http://10.0.1.5:8080');
+    var socket = io.connect('http://localhost:8080');
     var room = window.location.pathname.split('/').pop();
     var gameOn = false;
     var whoseTurn = 1;
