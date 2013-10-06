@@ -6,12 +6,16 @@ Author: David Clark
 */
 
 /* Variables */
-var app = require('express')();
+var express = require('express');
+var app = express();
 var server = require('http').createServer(app).listen(8080);
 var io = require('socket.io').listen(server);
 var mongoose = require('mongoose');
 
 /* Routes */
+app.get('/game/:id', function (req, res) {
+    res.sendfile('index.html');
+});
 app.get('/stats/', function (req, res) {
     res.sendfile('stats/index.html');
 });
@@ -19,13 +23,14 @@ app.get('/stats/data/', function (req, res) {
     res.contentType('application/json');
     res.sendfile('stats/data/moves.json');
 });
-app.get('/game/:id', function (req, res) {
-    res.sendfile('index.html');
-});
-app.get('/*', function (req, res) {
-    var path = req.params[0] ? req.params[0] : 'index.html';
-    res.sendfile('./' + path);
-});
+
+/* Routes to static files. */
+app.use('/audio', express.static('audio'));
+app.use('/css', express.static('css'));
+app.use('/images', express.static('images'));
+app.use('/js', express.static('js'));
+app.use('/libraries', express.static('libraries'));
+app.use('/stats', express.static('stats'));
 
 /* Database */
 mongoose.connect('mongodb://localhost/Node-Tac-Toe');
@@ -39,16 +44,6 @@ mongoose.connection.once('open', function callback() {
         square: Number      // Square they placed.
     });
     var moves = mongoose.model('moves', movesSchema);
-
-    // Query the moves table.
-    moves.find(function (err, moveDocument) {
-        if (err) {
-            console.log("Find error: ", err);
-        } else {
-            console.log("Move documents found:");
-            console.log(moveDocument);
-        }
-    });
 
     // Sockets
     io.sockets.on('connection', function (socket) {
