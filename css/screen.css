@@ -74,6 +74,7 @@ h1 span.char10 { -webkit-transform: rotate(-2deg); color: #fe951a; }
     color: #ffffff;
     background-color: #ffa500;
     border: none;
+    outline: none;
 }
 #newgame:hover {
     -webkit-transform: scale(1.03);

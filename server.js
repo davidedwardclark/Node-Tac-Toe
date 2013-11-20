@@ -49,6 +49,16 @@ mongoose.connection.once('open', function callback() {
     io.sockets.on('connection', function (socket) {
 
         var roomId;
+        var history = [];
+        var player1 = [];
+        var player2 = [];
+        var winningCombo;
+        var winningCombinations = [
+            [1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
+            [2, 5, 8], [3, 6, 9], [1, 5, 9], [7, 5, 3]
+        ];
+        var player1String;
+        var player2String;
 
         // Join the clients room.
         socket.on('room', function (room) {
@@ -88,6 +98,40 @@ mongoose.connection.once('open', function callback() {
                     );
                 }
             });
+
+            // Store move in global history.
+            history.push({player: data.player, square: data.square});
+
+            // Store move in player history.
+            if (data.player === 1) {
+                player1.push(data.square);
+                console.log(player1);
+            } else {
+                player2.push(data.square);
+                console.log(player2);
+            }
+
+            // Check win state.
+            player1String = player1.join('');
+            player2String = player2.join('');
+            for (var j = 0; j < winningCombinations.length; j++) {
+                var combo = winningCombinations[j].join('');
+                var regex = new RegExp('[' + combo + ']', 'g');
+                var player1Match = player1String.match(regex);
+                if ((player1Match === null) || (player1Match === undefined)) { player1Match = []; }
+                var player2Match = player2String.match(regex);
+                if ((player2Match === null) || (player2Match === undefined)) { player2Match = []; }
+                if (player1Match.length === 3) { winningCombo = player1Match; }
+                if (player2Match.length === 3) { winningCombo = player2Match; }
+                if ((player1Match.length === 3) || (player2Match.length === 3)) {
+                    if (data.player === 1) {
+                        console.log("Player 1 won.");
+                    } else {
+                        console.log("Player 2 won.");
+                    }
+                    console.log(winningCombo);
+                }
+            }
 
             // Emit to opponent.
             io.sockets.in(roomId).emit('update', data);
