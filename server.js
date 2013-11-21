@@ -5,6 +5,8 @@ Author: David Clark
 
 */
 
+"use strict";
+
 /* Variables */
 var express = require('express');
 var app = express();
@@ -50,8 +52,8 @@ mongoose.connection.once('open', function callback() {
 
         var roomId;
         var history = [];
-        var player1 = [];
-        var player2 = [];
+        var player1History = [];
+        var player2History = [];
         var winningCombo;
         var winningCombinations = [
             [1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7],
@@ -59,6 +61,8 @@ mongoose.connection.once('open', function callback() {
         ];
         var player1String;
         var player2String;
+        var player1Id;
+        var player2Id;
 
         // Join the clients room.
         socket.on('room', function (room) {
@@ -66,6 +70,18 @@ mongoose.connection.once('open', function callback() {
             roomId = room;
             console.log('Client connected to room: ' + roomId);
         });
+
+        if (io.sockets.clients(roomId).length === 1) {
+            var player1Id = io.sockets.clients(roomId)[0].id;
+            io.sockets.socket(player1Id).emit('player', '1');
+        }
+        if (io.sockets.clients(roomId).length === 2) {
+            var player2Id = io.sockets.clients(roomId)[1].id;
+            io.sockets.socket(player2Id).emit('player', '2');
+        }
+        
+        // Emit to opponent.
+        //io.sockets.in(roomId).emit('update', data);
 
         // On move.
         socket.on('move', function (data) {
@@ -104,16 +120,16 @@ mongoose.connection.once('open', function callback() {
 
             // Store move in player history.
             if (data.player === 1) {
-                player1.push(data.square);
-                console.log(player1);
+                player1History.push(data.square);
+                console.log(player1History);
             } else {
-                player2.push(data.square);
-                console.log(player2);
+                player2History.push(data.square);
+                console.log(player2History);
             }
 
             // Check win state.
-            player1String = player1.join('');
-            player2String = player2.join('');
+            player1String = player1History.join('');
+            player2String = player2History.join('');
             for (var j = 0; j < winningCombinations.length; j++) {
                 var combo = winningCombinations[j].join('');
                 var regex = new RegExp('[' + combo + ']', 'g');

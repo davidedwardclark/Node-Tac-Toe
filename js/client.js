@@ -7,8 +7,11 @@ Author: David Clark
 
 (function () {
 
+    "use strict";
+
     var socket = io.connect('http://localhost:8080');
     var room = window.location.pathname.split('/').pop();
+    var player;
     var gameOn = false;
     var whoseTurn = 1;
     var history = [];
@@ -22,6 +25,12 @@ Author: David Clark
     // Once connected emit which room we want to connect to.
     socket.on('connect', function () {
         socket.emit('room', room);
+    });
+
+    // Figure out which player this is.
+    socket.on('player', function (data) {
+        player = data;
+        console.log('This is player: ' + player);
     });
 
     // Receive socket data which confirms that the server recorded the move
