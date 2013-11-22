@@ -30,7 +30,12 @@ Author: David Clark
     // Figure out which player this is.
     socket.on('player', function (data) {
         player = data;
-        console.log('This is player: ' + player);
+        if (player === 1 || player === 2) {
+            console.log('This is player ' + player + '.');
+        }
+        if (player === 3) {
+            console.log('This is an observer.');
+        }
     });
 
     // Receive socket data which confirms that the server recorded the move

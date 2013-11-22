@@ -63,6 +63,7 @@ mongoose.connection.once('open', function callback() {
         var player2String;
         var player1Id;
         var player2Id;
+        var observer;
 
         // Join the clients room.
         socket.on('room', function (room) {
@@ -71,13 +72,24 @@ mongoose.connection.once('open', function callback() {
             console.log('Client connected to room: ' + roomId);
         });
 
-        if (io.sockets.clients(roomId).length === 1) {
-            var player1Id = io.sockets.clients(roomId)[0].id;
-            io.sockets.socket(player1Id).emit('player', '1');
+        var room = io.sockets.clients(roomId);
+        var numOfClients = room.length;
+
+        if (numOfClients === 1) {
+            player1Id = room[0].id;
+            io.sockets.socket(player1Id).emit('player', 1);
         }
-        if (io.sockets.clients(roomId).length === 2) {
-            var player2Id = io.sockets.clients(roomId)[1].id;
-            io.sockets.socket(player2Id).emit('player', '2');
+        if (numOfClients === 2) {
+            player2Id = room[1].id;
+            io.sockets.socket(player2Id).emit('player', 2);
+        }
+        if (numOfClients > 2) {
+            for (var i = 2; i <= numOfClients; i++) {
+                if (room[i]) {
+                    observer = room[i].id;
+                    io.sockets.socket(observer).emit('player', 3);
+                }
+            }
         }
         
         // Emit to opponent.
