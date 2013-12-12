@@ -1,1 +1,0 @@
-rsync -arvuz /Users/davidedwardclark/Projects/Node-Tac-Toe/ root@173.255.210.11:/srv/www/nodetactoe.com/public_html/ --rsh="ssh -p25386" --exclude '.git' --exclude '.DS_Store' --exclude 'deploy.sh';
