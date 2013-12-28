@@ -5,7 +5,7 @@ Author: David Clark
 
 */
 
-(function() {
+(function () {
 
     "use strict";
 
