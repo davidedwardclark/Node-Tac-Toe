@@ -24,6 +24,7 @@ body {
 }
 a {
     color: #ef8802;
+    outline: none;
 }
 sup {
     line-height: 0;
