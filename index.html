@@ -13,7 +13,7 @@
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 <body>
-    <section>
+    <header>
         <h1>
             <span class="char1">N</span>
             <span class="char2">o</span>
@@ -26,10 +26,14 @@
             <span class="char9">o</span>
             <span class="char10">e</span>
         </h1>
-        <button id="newgame">New Game</button>
-        <aside id="message">Player 1&rsquo;<sup>s</sup> Turn</aside>
+        <aside id="player">Player 1</aside>
+        <aside id="message" class="hide"></aside>
+    </header>
+    <section id="shareScreenModal">
+        <div>Send URL to Player 2</div>
+        <div id="shareScreenURL"></div>
     </section>
-    <table id="board">
+    <table id="board" class="hide">
         <tr>
             <td class="tile-1">&nbsp;</td>
             <td class="tile-2">&nbsp;</td>
@@ -46,7 +50,7 @@
             <td class="tile-9">&nbsp;</td>
         </tr>
     </table>
-    <footer>Made by <a href="http://www.davidedwardclark.com/">David Edward Clark</a>.</footer>
+    <footer>Made by <a href="http://www.davidedwardclark.com/">David Edward Clark</a></footer>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/libraries/audio5.min.js"></script>
     <script src="/js/client.js"></script>

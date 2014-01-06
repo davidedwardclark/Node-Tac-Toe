@@ -1,11 +1,12 @@
 {
-    "name": "Node-Tac-Toe",
-    "description": "Realtime two player tic tac toe in the browser.",
-    "version": "0.0.1",
-    "private": true,
-    "dependencies": {
-        "express": "3.3.4",
-        "socket.io": "0.9.16",
-        "mongoose": "3.6.15"
-    }
+  "name": "Node-Tac-Toe",
+  "description": "Realtime two player tic tac toe in the browser.",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.3.4",
+    "socket.io": "0.9.16",
+    "mongoose": "3.6.15",
+    "randomstring": "~1.0.2"
+  }
 }

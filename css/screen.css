@@ -31,7 +31,7 @@ sup {
 }
 
 /* header */
-section {
+header {
     overflow: auto;
 }
 h1 {
@@ -40,7 +40,7 @@ h1 {
     font-size: 3rem;
     letter-spacing: -0.3rem;
     font-weight: normal;
-    padding: 2rem;
+    padding: 1.5rem 2rem 2rem 2rem;
     margin-bottom: 1rem;
     color: #ef8802;
 }
@@ -58,35 +58,29 @@ h1 span.char7 { margin-left: -0.1rem; }
 h1 span.char8 { -webkit-transform: rotate(-2deg); margin: 0 -0.5rem 0 0.3rem; color: #fe951a; }
 h1 span.char9 { margin-left: -0.2rem; }
 h1 span.char10 { -webkit-transform: rotate(-2deg); color: #fe951a; }
-.wf-active #newgame, .wf-active #message {
+.wf-active #player, .wf-active #message {
     letter-spacing: 0.1rem;
 }
 .hide {
     display: none;
 }
-#newgame {
+#player {
     float: right;
     font-family: "peachy-keen", helvetica, sans-serif;
-    margin: 2.65rem 2rem 0 0;
+    text-transform: uppercase;
+    margin: 2.15rem 2rem 0 0;
     padding: 0.65rem 1rem;
     font-size: 1rem;
     border-radius: 1rem;
-    cursor: pointer;
     color: #ffffff;
     background-color: #ffa500;
     border: none;
     outline: none;
 }
-#newgame:hover {
-    -webkit-transform: scale(1.03);
-}
-#newgame:active {
-    -webkit-transform: scale(1);
-}
 #message {
     width: 12rem;
     text-align: center;
-    margin: 2.65rem auto 2.65rem auto;
+    margin: 2.15rem auto 2.15rem auto;
     font-size: 1rem;
     padding: 0.65rem 1rem;
     color: #ffffff;
@@ -99,8 +93,29 @@ h1 span.char10 { -webkit-transform: rotate(-2deg); color: #fe951a; }
     text-transform: lowercase;
 }
 
+/* share screen */
+#shareScreenModal {
+    display: none;
+}
+.sharescreen #shareScreenModal {
+    display: block;
+    width: 30rem;
+    border-radius: 1rem;
+    color: #0033ff;
+    background-color: #ffa500;
+    margin: 1rem auto 3rem auto;
+    padding: 7rem 4rem;
+    text-align: center;
+    font-size: 2rem;
+}
+.sharescreen #shareScreenURL {
+    margin-top: 0.5rem;
+    font-size: 1.4rem;
+}
+
 /* board */
 table {
+    width: 38rem;
     margin: 0 auto;
     border-collapse: separate;
     border-spacing: 0.5rem;
@@ -114,7 +129,7 @@ table.quiet td:hover {
 table tr td {
     width: 11rem;
     height: 11rem;
-    padding: 0.5rem;
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
     font-size: 9rem;
     line-height: 1.2;
     text-align: center;
@@ -133,6 +148,17 @@ footer {
     font-size: 1rem;
     padding: 2rem 0 0.5rem 2rem;
     color: #ffa500;
+}
+footer a {
+    text-decoration: none;
+}
+
+/* helper classes */
+.hide {
+    display: none;
+}
+.show {
+    display: block;
 }
 
 /* 1000 & down */
