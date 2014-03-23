@@ -1,8 +1,5 @@
 # Node Tac Toe
-Realtime two player tic tac toe in the browser. In the process of making it multiplayer with Node, Express & Socket.io.
+Realtime two player tic tac toe in the browser. See it working here: http://www.nodetactoe.com/
 
-## Run Locally
-Download the repo and open the index.html file in a browser.
-
-## Notes
-Project in progress. Currently only supports two player mode in a browser.
+## Tech
+Built with Node.JS, MongoDB, Express & Socket.IO.
