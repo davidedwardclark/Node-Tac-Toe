@@ -9,7 +9,7 @@ Author: David Clark
 
     'use strict';
 
-    var socket = io.connect('http://localhost:8080');
+    var socket = io.connect('http://www.nodetactoe.com');
     var urlLocation = window.location.href;
     var room = window.location.pathname.split('/').pop();
     var player;
